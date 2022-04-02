@@ -61,6 +61,12 @@ build CMakeFiles/DecisionMakingProject.dir/Matrice.cpp.obj: CXX_COMPILER__Decisi
   OBJECT_DIR = CMakeFiles\DecisionMakingProject.dir
   OBJECT_FILE_DIR = CMakeFiles\DecisionMakingProject.dir
 
+build CMakeFiles/DecisionMakingProject.dir/Resolution.cpp.obj: CXX_COMPILER__DecisionMakingProject_Debug C$:/Users/yassine/CLionProjects/DecisionMakingProject/Resolution.cpp || cmake_object_order_depends_target_DecisionMakingProject
+  DEP_FILE = CMakeFiles\DecisionMakingProject.dir\Resolution.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\DecisionMakingProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\DecisionMakingProject.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target DecisionMakingProject
@@ -69,7 +75,7 @@ build CMakeFiles/DecisionMakingProject.dir/Matrice.cpp.obj: CXX_COMPILER__Decisi
 #############################################
 # Link the executable DecisionMakingProject.exe
 
-build DecisionMakingProject.exe: CXX_EXECUTABLE_LINKER__DecisionMakingProject_Debug CMakeFiles/DecisionMakingProject.dir/main.cpp.obj CMakeFiles/DecisionMakingProject.dir/Matrice.cpp.obj
+build DecisionMakingProject.exe: CXX_EXECUTABLE_LINKER__DecisionMakingProject_Debug CMakeFiles/DecisionMakingProject.dir/main.cpp.obj CMakeFiles/DecisionMakingProject.dir/Matrice.cpp.obj CMakeFiles/DecisionMakingProject.dir/Resolution.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\DecisionMakingProject.dir
