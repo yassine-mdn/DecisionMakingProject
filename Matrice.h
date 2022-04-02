@@ -13,10 +13,9 @@ class Matrice
 {
  public:
 	Matrice();
+	Matrice(const std::string& path);
 	virtual ~Matrice();
 	const std::vector<std::vector<float>>& GetMatriceDeBase() const;
-	void initialize_matrice(int x , int y);
-	void initialize_matrice(const std::string& path);
 	void print_matrice();
  private:
 	std::vector<std::vector<float>> matriceDeBase_;
