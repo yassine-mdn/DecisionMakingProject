@@ -5,67 +5,209 @@
 #include "Matrice.h"
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
 
 Matrice::~Matrice()
-{
+= default;
 
-}
 const std::vector<std::vector<float>>& Matrice::GetMatriceDeBase() const
 {
 	return matriceDeBase_;
 }
+
 Matrice::Matrice()
 {
-}
-void Matrice::print_matrice()
-{
-
-	for (int i = 0; i < matriceDeBase_.size(); ++i)
-	{
-		for (int j = 0; j < matriceDeBase_.at(i).size(); ++j)
-		{
-			std::cout << matriceDeBase_.at(i).at(j) << " ";
-		}
-		std::cout << std::endl;
-	}
-
-}
-void Matrice::initialize_matrice(int x, int y)
-{
+	cout << "give the number of feasible strategies:\n";
+	int x{};
+	cin >> x;
+	vector<float> actions;
 	for (int i = 0; i < x; ++i)
 	{
-		std::vector<float> tempVect;
-		for (int j = 0; j < y; ++j)
+		cout << "give the number of Actions for strategy:" << i + 1 << "\n";
+		float temp{};
+		cin >> temp;
+		actions.push_back(temp);
+	}
+
+	cout << "give the number of possible scenarios:\n";
+	cin >> x;
+	vector<float> scenarios;
+	for (int i = 0; i < x; ++i)
+	{
+		cout << "give the possible demande in the case of scenario number :" << i + 1 << "\n";
+		float temp{};
+		cin >> temp;
+		scenarios.push_back(temp);
+	}
+
+	cout << "Does the selling price depend on the current scenarios ? y/n\n";
+	char c;
+	cin >> c;
+	vector<float>
+		sellingPrice; //used a vector because the if statement gonna limit the scope of any variable declared inside it
+	if (c == 'y')
+	{
+		sellingPrice.reserve(scenarios.size());
+		for (int i = 0; i < scenarios.size(); ++i)
 		{
-			std::cout << "tapper l\'element" << i << ":" << j << "\n";
-			float valueTyped{};
-			std::cin >> valueTyped;
-			tempVect.push_back(valueTyped);
+			cout << "give the possible selling price in the case of scenario number :" << i + 1 << "\n";
+			float temp{};
+			cin >> temp;
+			sellingPrice.push_back(temp);
+		}
+	}
+	else
+	{
+		cout << "give the Fixed selling price :\n";
+		float temp{};
+		cin >> temp;
+		sellingPrice.push_back(temp);
+	}
+
+	cout << "Did the gouvernement grant you a subsidy ? y/n\n";
+	cin >> c;
+	unordered_map<int, float> subsidys;
+	if (c == 'y')
+	{
+		cout << "give the max value of the first  interval :\n";
+		int key{ 1 };
+		cin >> key;
+		while (key != -1)
+		{
+			cout << "give the pourcentage of the subsidy (float value) :\n";
+			float temp{};
+			cin >> temp;
+			subsidys[key] = temp;
+			cout << "give the max value of the next interval (-1 to mark the last interval):\n";
+			cin >> key;
+		}
+		cout << "give the pourcentage of the subsidy (float value) :\n";
+		float temp{};
+		cin >> temp;
+		subsidys[key] = temp;
+
+	}
+	else
+		subsidys[-1] = 0;
+
+	cout << "Does the Buying price varie with the quantity ? y/n\n";
+	cin >> c;
+	unordered_map<int, float> buyingPrice;
+	//TODO: add a way to add the last item in the map
+	if (c == 'y')
+	{
+		cout << "give the max value of the first interval :\n";
+		int key{ 1 };
+		cin >> key;
+		while (key != -1)
+		{
+			cout << "Type the asking price :\n";
+			float temp{};
+			cin >> temp;
+			buyingPrice[key] = temp;
+			cout << "give the max value of the next interval (-1 to mark the last interval):\n";
+			cin >> key;
+		}
+		cout << "Type the asking price :\n";
+		float temp{};
+		cin >> temp;
+		buyingPrice[key] = temp;
+	}
+	else
+	{
+		cout << "Type the asking price :\n";
+		float temp{};
+		cin >> temp;
+		buyingPrice[-1] = temp;
+	}
+
+	cout << "Are there any extra fixed expenses ? y/n\n";
+	cin >> c;
+	float extraExpenses{};
+	if (c == 'y')
+	{
+		cout << "give the total value of all extra fixed expenses :\n";
+		cin >> extraExpenses;
+	}
+
+	for (float& action: actions)
+	{
+		std::vector<float> tempVect;
+		for (int j = 0; j < scenarios.size(); ++j)
+		{
+			float val{};
+			float buyPrice{ 0 };
+			float subsidy{ 0 };
+			float stock = action < scenarios.at(j) ? action : scenarios.at(j);
+
+			for (const auto& item: buyingPrice)
+			{
+				if (stock <= (float) item.first || item.first == -1)
+				{
+					buyPrice = item.second;
+					continue;
+				}
+			}
+
+			for (const auto& item: subsidys)
+			{
+				if (stock <= (float) item.first || item.first == -1)
+				{
+					subsidy = item.second;
+					continue;
+				}
+			}
+
+			val = ((action * buyPrice * subsidy) + stock * sellingPrice.at(j)) - (action * buyPrice + extraExpenses);
+
+			tempVect.push_back(val);
 		}
 		matriceDeBase_.push_back(tempVect);
 	}
-
+	cout << "";
 }
-void Matrice::initialize_matrice(const std::string& path)
+
+Matrice::Matrice(const std::string& path)
 {
 	std::fstream file;
-	file.open(path,std::ios::in);
-	if (!file.is_open()){
-		std::cout<<"file name or path invalid\n";
+	file.open(path, std::ios::in);
+	if (!file.is_open())
+	{
+		std::cout << "file name or path invalid\n";
 		return;
 	}
-	while(file){
+	while (file)
+	{
 		std::string line;
-		if(!getline(file,line)) break;
+		if (!getline(file, line)) break;
 
 		std::istringstream ss(line);
-		std::vector<float > rows;
+		std::vector<float> rows;
 
-		while(ss){
+		while (ss)
+		{
 			std::string s;
-			if(!getline(ss, s, ',')) break;
+			if (!getline(ss, s, ',')) break;
 			rows.push_back(std::stof(s));
 		}
 		matriceDeBase_.push_back(rows);
 	}
 }
+
+void Matrice::print_matrice()
+{
+
+	for (auto& i: matriceDeBase_)
+	{
+		for (float j: i)
+		{
+			std::cout << j << " ";
+		}
+		std::cout << std::endl;
+	}
+
+}
+
