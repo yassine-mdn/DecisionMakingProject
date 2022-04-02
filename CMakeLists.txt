@@ -3,4 +3,4 @@ project(DecisionMakingProject)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(DecisionMakingProject main.cpp Matrice.cpp Matrice.h)
+add_executable(DecisionMakingProject main.cpp Matrice.cpp Matrice.h Resolution.cpp Resolution.h)
