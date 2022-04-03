@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <numeric>
 
-void Resolution::lawd(Matrice& m)
+void Resolution::wald(Matrice& m)
 {
 	std::vector<float> min;
 	min.reserve(m.GetMatriceDeBase().size());

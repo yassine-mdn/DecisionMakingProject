@@ -11,7 +11,7 @@
 class Resolution
 {
  public:
-	static void lawd(Matrice& m);
+	static void wald(Matrice& m);
 	static void laplace(Matrice& m);
 	static void hurwicz(float alpha, Matrice& m);
 	static void savage(Matrice& m);
