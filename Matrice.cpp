@@ -3,6 +3,7 @@
 //
 
 #include "Matrice.h"
+#include "Output.h"
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -173,7 +174,9 @@ Matrice::Matrice()
 Matrice::Matrice(const std::string& path)
 {
 	std::fstream file;
-	file.open(path, std::ios::in);
+	std::string fullPath = "Testing/Input/";	//TODO:When in release configuration change input folder
+	fullPath.append(path);
+	file.open(fullPath, std::ios::in);
 	if (!file.is_open())
 	{
 		std::cout << "file name or path invalid\n";
@@ -199,15 +202,6 @@ Matrice::Matrice(const std::string& path)
 
 void Matrice::print_matrice()
 {
-
-	for (auto& i: matriceDeBase_)
-	{
-		for (float j: i)
-		{
-			std::cout << j << " ";
-		}
-		std::cout << std::endl;
-	}
-
+	Output::pretty_matrix_print(matriceDeBase_);
 }
 
