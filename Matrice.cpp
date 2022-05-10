@@ -22,7 +22,7 @@ const std::vector<std::vector<float>>& Matrice::GetMatriceDeBase() const
 Matrice::Matrice()
 {
 	cout << "give the number of feasible strategies:\n";
-	int x{};
+	int x{};		//pour initialiser x à zero
 	cin >> x;
 	vector<float> actions;
 	for (int i = 0; i < x; ++i)
@@ -47,11 +47,10 @@ Matrice::Matrice()
 	cout << "Does the selling price depend on the current scenarios ? y/n\n";
 	char c;
 	cin >> c;
-	vector<float>
-		sellingPrice; //used a vector because the if statement gonna limit the scope of any variable declared inside it
+	vector<float>sellingPrice; //used a vector because the if statement gonna limit the scope of any variable declared inside it
 	if (c == 'y')
 	{
-		sellingPrice.reserve(scenarios.size());
+		sellingPrice.reserve(scenarios.size());		//reserve un vecteur de la meme taille que le vecteur scenarios
 		for (int i = 0; i < scenarios.size(); ++i)
 		{
 			cout << "give the possible selling price in the case of scenario number :" << i + 1 << "\n";
@@ -70,7 +69,7 @@ Matrice::Matrice()
 
 	cout << "Did the gouvernement grant you a subsidy ? y/n\n";
 	cin >> c;
-	unordered_map<int, float> subsidys;
+	unordered_map<int, float> subsidys;			//comme les hashTable en java
 	if (c == 'y')
 	{
 		cout << "give the max value of the first  interval :\n";
@@ -97,7 +96,6 @@ Matrice::Matrice()
 	cout << "Does the Buying price varie with the quantity ? y/n\n";
 	cin >> c;
 	unordered_map<int, float> buyingPrice;
-	//TODO: add a way to add the last item in the map
 	if (c == 'y')
 	{
 		cout << "give the max value of the first interval :\n";
@@ -140,9 +138,9 @@ Matrice::Matrice()
 		for (int j = 0; j < scenarios.size(); ++j)
 		{
 			float val{};
-			float buyPrice{ 0 };
-			float subsidy{ 0 };
-			float stock = action < scenarios.at(j) ? action : scenarios.at(j);
+			float buyPrice{ 0 };	//le prix d'achat pout l'intervalle choisi
+			float subsidy{ 0 };		//subvention pour l'intervale choisi
+			float stock = action < scenarios.at(j) ? action : scenarios.at(j); 	//le min entre la demande et la quantité qui peut etre acheter
 
 			for (const auto& item: buyingPrice)
 			{
@@ -161,14 +159,16 @@ Matrice::Matrice()
 					continue;
 				}
 			}
-
-			val = ((action * buyPrice * subsidy) + stock * sellingPrice.at(j)) - (action * buyPrice + extraExpenses);
+			if (scenarios.size() == sellingPrice.size())
+				val = ((action * buyPrice * subsidy) + stock * sellingPrice.at(j)) - (action * buyPrice + extraExpenses);
+			else	//pour le cas ou on a un prix fixe
+				val = ((action * buyPrice * subsidy) + stock * sellingPrice.at(0)) - (action * buyPrice + extraExpenses);
 
 			tempVect.push_back(val);
 		}
 		matriceDeBase_.push_back(tempVect);
 	}
-	cout << "";
+
 }
 
 Matrice::Matrice(const std::string& path)
@@ -176,7 +176,7 @@ Matrice::Matrice(const std::string& path)
 	std::fstream file;
 	std::string fullPath = "Testing/Input/";	//TODO:When in release configuration change input folder
 	fullPath.append(path);
-	file.open(fullPath, std::ios::in);
+	file.open(fullPath, std::ios::in);		//ouvre le fichier et ecrase son contenu
 	if (!file.is_open())
 	{
 		std::cout << "file name or path invalid\n";
@@ -185,9 +185,9 @@ Matrice::Matrice(const std::string& path)
 	while (file)
 	{
 		std::string line;
-		if (!getline(file, line)) break;
+		if (!getline(file, line)) break;	//sasure que on n'est pas a la fin du fichier
 
-		std::istringstream ss(line);
+		std::istringstream ss(line);		//lit toute un ligne du fichier
 		std::vector<float> rows;
 
 		while (ss)

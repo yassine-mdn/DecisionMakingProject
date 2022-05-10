@@ -14,11 +14,11 @@ void Resolution::wald(Matrice& m, bool verbose, std::string path)
 
 	for (const auto& i: m.GetMatriceDeBase())
 	{
-		min.push_back(*std::min_element(i.begin(), i.end()));
+		min.push_back(*std::min_element(i.begin(), i.end()));	//le min de chaque ligne
 	}
 
 	std::string text = "d'apres le critere de WAld on choisi la startegie : ";
-	text.append(std::to_string(std::max_element(min.begin(), min.end()) - min.begin() + 1));
+	text.append(std::to_string(std::max_element(min.begin(), min.end()) - min.begin() + 1)); //Le max des min
 
 	if (verbose)
 		Output::pretty_vector_print(min, text);
@@ -39,11 +39,11 @@ void Resolution::laplace(Matrice& m, bool verbose, std::string path)
 
 	for (const auto& i: m.GetMatriceDeBase())
 	{
-		average.push_back(std::accumulate(i.begin(), i.end(), 0.0f) / (float)i.size());
+		average.push_back(std::accumulate(i.begin(), i.end(), 0.0f) / (float)i.size());		//la moyenne de chaque ligne
 	}
 
 	std::string text = "d'apres le critere de Laplace on choisi la startegie : ";
-	text.append(std::to_string(std::max_element(average.begin(), average.end()) - average.begin() + 1));
+	text.append(std::to_string(std::max_element(average.begin(), average.end()) - average.begin() + 1));	//Le max de moyenne
 
 	if (verbose)
 		Output::pretty_vector_print(average, text);
@@ -66,8 +66,8 @@ void Resolution::hurwicz(float alpha, Matrice& m, bool verbose, std::string path
 
 	for (const auto& i: m.GetMatriceDeBase())
 	{
-		min.push_back(*std::min_element(i.begin(), i.end()));
-		max.push_back(*std::max_element(i.begin(), i.end()));
+		min.push_back(*std::min_element(i.begin(), i.end()));		//min de chaque ligne
+		max.push_back(*std::max_element(i.begin(), i.end()));		//max de chaque ligne
 	}
 
 	std::vector<float> hurwicz;
@@ -75,11 +75,11 @@ void Resolution::hurwicz(float alpha, Matrice& m, bool verbose, std::string path
 
 	for (int i = 0; i < max.size(); ++i)
 	{
-		hurwicz.push_back((max.at(i) * alpha) + (min.at(i) * (1 - alpha)));
+		hurwicz.push_back((max.at(i) * alpha) + (min.at(i) * (1 - alpha)));	//calcule de (max*alpha)+(min*(1-alpha))
 	}
 
 	std::string text = "d'apres le critere de Hurwicz on choisi la startegie : ";
-	text.append(std::to_string(std::max_element(hurwicz.begin(), hurwicz.end()) - hurwicz.begin() + 1));
+	text.append(std::to_string(std::max_element(hurwicz.begin(), hurwicz.end()) - hurwicz.begin() + 1));  //mac du vectzur hurwicz
 
 	if (verbose)
 		Output::pretty_vector_print(hurwicz, text);
@@ -102,29 +102,29 @@ void Resolution::savage(Matrice& m, bool verbose, std::string path)
 
 	for (int i = 0; i < matriceRegret.at(0).size(); ++i)
 	{
-		std::vector<float> max;
-		max.reserve(matriceRegret.size());
+		std::vector<float> col;
+		col.reserve(matriceRegret.size());
 		for (int j = 0; j < matriceRegret.size(); ++j)
 		{
-			max.push_back(matriceRegret.at(j).at(i));
-		}
+			col.push_back(matriceRegret.at(j).at(i));
+		}	//col est rempli avec la colone i
 		for (int j = 0; j < m.GetMatriceDeBase().size(); ++j)
 		{
-			matriceRegret[j][i] = *(std::max_element(max.begin(), max.end())) - m.GetMatriceDeBase().at(j).at(i);
+			matriceRegret[j][i] = *(std::max_element(col.begin(), col.end())) - m.GetMatriceDeBase().at(j).at(i);
 		}
 
-	}
+	}	//calcul matrice de regret
 
 	std::vector<float> max;
 	max.reserve(matriceRegret.size());
 
 	for (const auto& i: matriceRegret)
 	{
-		max.push_back(*std::max_element(i.begin(), i.end()));
+		max.push_back(*std::max_element(i.begin(), i.end()));	//max chaque ligne de la matrice regret
 	}
 
 	std::string text = "d'apres le critere de Savage on choisi la startegie : ";
-	text.append(std::to_string(std::min_element(max.begin(), max.end()) - max.begin() + 1));
+	text.append(std::to_string(std::min_element(max.begin(), max.end()) - max.begin() + 1));	//min des max
 
 	if (verbose)
 	{
@@ -177,14 +177,14 @@ void Resolution::maximax(Matrice& m, bool verbose, std::string path)
 		max.push_back(*std::max_element(i.begin(), i.end()));
 	}
 
-	std::string text = "d'apres le critere de MiniMax on choisi la startegie : ";
+	std::string text = "d'apres le critere de MaxiMax on choisi la startegie : ";
 	text.append(std::to_string(std::max_element(max.begin(), max.end()) - max.begin() + 1));
 
 	if (verbose)
 		Output::pretty_vector_print(max, text);
 	if (path.compare("Testing/Output/"))
 	{
-		Output::output_vector_to_file(max, path, "Critere de MiniMax", text);
+		Output::output_vector_to_file(max, path, "Critere de MaxiMax", text);
 	}
 	else
 	{

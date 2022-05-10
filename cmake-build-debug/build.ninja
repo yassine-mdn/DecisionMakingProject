@@ -41,49 +41,55 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/yassine/CLionProjects/DecisionMakingProject/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target DecisionMakingProject
+# Object build statements for EXECUTABLE target DMP
 
 
 #############################################
-# Order-only phony target for DecisionMakingProject
+# Order-only phony target for DMP
 
-build cmake_object_order_depends_target_DecisionMakingProject: phony || CMakeFiles/DecisionMakingProject.dir
+build cmake_object_order_depends_target_DMP: phony || CMakeFiles/DMP.dir
 
-build CMakeFiles/DecisionMakingProject.dir/main.cpp.obj: CXX_COMPILER__DecisionMakingProject_Debug C$:/Users/yassine/CLionProjects/DecisionMakingProject/main.cpp || cmake_object_order_depends_target_DecisionMakingProject
-  DEP_FILE = CMakeFiles\DecisionMakingProject.dir\main.cpp.obj.d
+build CMakeFiles/DMP.dir/main.cpp.obj: CXX_COMPILER__DMP_Debug C$:/Users/yassine/CLionProjects/DecisionMakingProject/main.cpp || cmake_object_order_depends_target_DMP
+  DEP_FILE = CMakeFiles\DMP.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++14
-  OBJECT_DIR = CMakeFiles\DecisionMakingProject.dir
-  OBJECT_FILE_DIR = CMakeFiles\DecisionMakingProject.dir
+  OBJECT_DIR = CMakeFiles\DMP.dir
+  OBJECT_FILE_DIR = CMakeFiles\DMP.dir
 
-build CMakeFiles/DecisionMakingProject.dir/Matrice.cpp.obj: CXX_COMPILER__DecisionMakingProject_Debug C$:/Users/yassine/CLionProjects/DecisionMakingProject/Matrice.cpp || cmake_object_order_depends_target_DecisionMakingProject
-  DEP_FILE = CMakeFiles\DecisionMakingProject.dir\Matrice.cpp.obj.d
+build CMakeFiles/DMP.dir/Matrice.cpp.obj: CXX_COMPILER__DMP_Debug C$:/Users/yassine/CLionProjects/DecisionMakingProject/Matrice.cpp || cmake_object_order_depends_target_DMP
+  DEP_FILE = CMakeFiles\DMP.dir\Matrice.cpp.obj.d
   FLAGS = -g -std=gnu++14
-  OBJECT_DIR = CMakeFiles\DecisionMakingProject.dir
-  OBJECT_FILE_DIR = CMakeFiles\DecisionMakingProject.dir
+  OBJECT_DIR = CMakeFiles\DMP.dir
+  OBJECT_FILE_DIR = CMakeFiles\DMP.dir
 
-build CMakeFiles/DecisionMakingProject.dir/Resolution.cpp.obj: CXX_COMPILER__DecisionMakingProject_Debug C$:/Users/yassine/CLionProjects/DecisionMakingProject/Resolution.cpp || cmake_object_order_depends_target_DecisionMakingProject
-  DEP_FILE = CMakeFiles\DecisionMakingProject.dir\Resolution.cpp.obj.d
+build CMakeFiles/DMP.dir/Output.cpp.obj: CXX_COMPILER__DMP_Debug C$:/Users/yassine/CLionProjects/DecisionMakingProject/Output.cpp || cmake_object_order_depends_target_DMP
+  DEP_FILE = CMakeFiles\DMP.dir\Output.cpp.obj.d
   FLAGS = -g -std=gnu++14
-  OBJECT_DIR = CMakeFiles\DecisionMakingProject.dir
-  OBJECT_FILE_DIR = CMakeFiles\DecisionMakingProject.dir
+  OBJECT_DIR = CMakeFiles\DMP.dir
+  OBJECT_FILE_DIR = CMakeFiles\DMP.dir
+
+build CMakeFiles/DMP.dir/Resolution.cpp.obj: CXX_COMPILER__DMP_Debug C$:/Users/yassine/CLionProjects/DecisionMakingProject/Resolution.cpp || cmake_object_order_depends_target_DMP
+  DEP_FILE = CMakeFiles\DMP.dir\Resolution.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\DMP.dir
+  OBJECT_FILE_DIR = CMakeFiles\DMP.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target DecisionMakingProject
+# Link build statements for EXECUTABLE target DMP
 
 
 #############################################
-# Link the executable DecisionMakingProject.exe
+# Link the executable DMP.exe
 
-build DecisionMakingProject.exe: CXX_EXECUTABLE_LINKER__DecisionMakingProject_Debug CMakeFiles/DecisionMakingProject.dir/main.cpp.obj CMakeFiles/DecisionMakingProject.dir/Matrice.cpp.obj CMakeFiles/DecisionMakingProject.dir/Resolution.cpp.obj
+build DMP.exe: CXX_EXECUTABLE_LINKER__DMP_Debug CMakeFiles/DMP.dir/main.cpp.obj CMakeFiles/DMP.dir/Matrice.cpp.obj CMakeFiles/DMP.dir/Output.cpp.obj CMakeFiles/DMP.dir/Resolution.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\DecisionMakingProject.dir
+  OBJECT_DIR = CMakeFiles\DMP.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = DecisionMakingProject.exe
-  TARGET_IMPLIB = libDecisionMakingProject.dll.a
-  TARGET_PDB = DecisionMakingProject.exe.dbg
+  TARGET_FILE = DMP.exe
+  TARGET_IMPLIB = libDMP.dll.a
+  TARGET_PDB = DMP.exe.dbg
 
 
 #############################################
@@ -111,7 +117,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build DecisionMakingProject: phony DecisionMakingProject.exe
+build DMP: phony DMP.exe
 
 # =============================================================================
 # Folder targets.
@@ -121,7 +127,7 @@ build DecisionMakingProject: phony DecisionMakingProject.exe
 #############################################
 # Folder: C:/Users/yassine/CLionProjects/DecisionMakingProject/cmake-build-debug
 
-build all: phony DecisionMakingProject.exe
+build all: phony DMP.exe
 
 # =============================================================================
 # Built-in targets

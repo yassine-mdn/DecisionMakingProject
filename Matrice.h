@@ -14,7 +14,7 @@ class Matrice
  public:
 	Matrice();
 	Matrice(const std::string& path);
-	virtual ~Matrice();
+	virtual ~Matrice();			//Destructeur
 	const std::vector<std::vector<float>>& GetMatriceDeBase() const;
 	void print_matrice();
  private:

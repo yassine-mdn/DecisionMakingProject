@@ -15,22 +15,31 @@ int main(int argc, char* argv[])
 		if (strcmp(argv[i], "-h") == 0)
 			Output::help();
 		else if (strcmp(argv[i], "-g") == 0)
-			m = new Matrice();
+			m = new Matrice();					// l'utilisateur genere sa matrice
 		else if (strcmp(argv[i], "-i") == 0)
-			m = new Matrice(argv[i + 1]);
+			m = new Matrice(argv[i + 1]);   // generer matrice a partir d'un fichier
 		else if (strcmp(argv[i], "-v") == 0)
 			verbose = true;
 		else if (strcmp(argv[i], "-o") == 0)
 		{
-			outputPath.append(argv[i + 1]);
-			Output::intialize_file(outputPath);
+			outputPath.append(argv[i + 1]);				//concataine le nom du fichier avec le chemin
+			Output::intialize_file(outputPath);		//initialize le fichier output
 		}
 	}
-	if (m != nullptr)
+	if (m != nullptr) 	//s'assure que la matrice a etait génerer
 	{
 		for (int i = 0; i < argc; ++i)
 		{
-			if (strcmp(argv[i], "-W") == 0)
+			if (strcmp(argv[i], "-A") == 0)
+			{
+				Resolution::wald(*m,verbose,outputPath);
+				Resolution::laplace(*m,verbose,outputPath);
+				Resolution::savage(*m,verbose,outputPath);
+				Resolution::hurwicz(std::stof(argv[i+1]),*m,verbose,outputPath);
+				Resolution::maximax(*m,verbose,outputPath);
+				Resolution::minimax(*m,verbose,outputPath);
+			}
+			else if (strcmp(argv[i], "-W") == 0)
 				Resolution::wald(*m,verbose,outputPath);
 			else if (strcmp(argv[i], "-L") == 0)
 				Resolution::laplace(*m,verbose,outputPath);
@@ -44,7 +53,6 @@ int main(int argc, char* argv[])
 			else if (strcmp(argv[i], "-H") == 0)
 				Resolution::hurwicz(std::stof(argv[i+1]),*m,verbose,outputPath);
 		}
-		m->print_matrice();
 	}
 	else
 	{
