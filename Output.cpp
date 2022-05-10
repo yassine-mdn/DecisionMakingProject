@@ -9,6 +9,11 @@
 #include "Output.h"
 using namespace std;
 
+
+/*
+ * Permet d'aficher un page help qui montre comment utiliser tous nos arguments de commande
+ *
+ * */
 void Output::help()
 {
 	cout << "helps give pointers to the best decision using different strategies\n\n"
@@ -26,9 +31,15 @@ void Output::help()
 			"-M\tUses MiniMax and MaxiMax criteria\n";
 }
 
+/*
+ * imprime dans au terminale une matrice avec un subtext si demander
+ *
+ * @param m reference constante vers notre vecteur de vecteur
+ * @param text sub-text a imprimer apprait notre vecteur , "" par defalut
+ * */
 void Output::pretty_matrix_print(vector<std::vector<float>>& m, std::string text)
 {
-	size_t maxColLen[m.at(0).size()];
+	size_t maxColLen[m.at(0).size()];	//nombre de char max que prendra chaque colone de notre matrice
 	for (int i = 0; i < m.at(0).size(); ++i)
 	{
 		maxColLen[i] = 0;
@@ -56,6 +67,12 @@ void Output::pretty_matrix_print(vector<std::vector<float>>& m, std::string text
 
 }
 
+/*
+ * imprime dans au terminale un vecteur avec un subtext si demander
+ *
+ * @param v reference constante vers notre vecteur
+ * @param text sub-text a imprimer apprait notre vecteur , " " par defalut
+ * */
 void Output::pretty_vector_print(vector<float>& v, std::string text)
 {
 	size_t maxColLen;
@@ -80,12 +97,20 @@ void Output::pretty_vector_print(vector<float>& v, std::string text)
 	cout << "\n";
 }
 
+/*
+ * imprime dans le fichier une matrice avec un titre et a subtext si demander
+ *
+ * @param m reference constante vers notre vecteur de vecteur
+ * @param path le chemain du fichier
+ * @param title titre du vecteur à imprimer apparait avant le vecteur , " " par default
+ * @param text sub-text a imprimer apprait notre vecteur , " " par defalut
+ * */
 void Output::output_matrix_to_file(vector<std::vector<float>>& m, std::string path, std::string title, std::string text)
 {
 	fstream my_file;
 	my_file.open(path, ios_base::app);
 	my_file <<"\n\n";
-	size_t maxColLen[m.at(0).size()];
+	size_t maxColLen[m.at(0).size()];	//nombre de char max que prendra chaque colone de notre matrice
 	for (int i = 0; i < m.at(0).size(); ++i)
 	{
 		maxColLen[i] = 0;
@@ -117,6 +142,14 @@ void Output::output_matrix_to_file(vector<std::vector<float>>& m, std::string pa
 
 }
 
+/*
+ * imprime dans le fichier un vecteur avec un titre et a subtext si demander
+ *
+ * @param v reference constante vers notre vecteur
+ * @param path le chemain du fichier
+ * @param title titre du vecteur à imprimer apparait avant le vecteur , " " par default
+ * @param text sub-text a imprimer apprait notre vecteur , " " par defalut
+ * */
 void Output::output_vector_to_file(vector<float>& v, std::string path, std::string title, std::string text)
 {
 	fstream my_file;
@@ -148,6 +181,11 @@ void Output::output_vector_to_file(vector<float>& v, std::string path, std::stri
 
 }
 
+/*
+ * Ecrase le contenu du fichier s'il existe et l'initialise
+ *
+ * @param path le chemain du fichier
+ * */
 void Output::intialize_file(std::string path)
 {
 	fstream my_file;
@@ -159,11 +197,17 @@ void Output::intialize_file(std::string path)
 					 <<  now->tm_mday << '|'
 					 << now->tm_hour <<':'
 					 << now->tm_min
-					 << "\n";
+					 << "\n";			//permet d'avoir le temp avec format YYYY-MM-DD|hh:mm
 	my_file.close();
 }
 
-
+/*
+ * Rend le nombre de charactére qui compose un réel donné
+ *
+ * @param n le nombre réel d'ou en veut savoir la taille
+ * @return nombre de charactére de n
+ *
+ * */
 size_t Output::number_of_digits(float n)
 {
 	ostringstream str;

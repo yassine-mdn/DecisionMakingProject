@@ -7,6 +7,14 @@
 #include <algorithm>
 #include <numeric>
 
+/*
+ * resolution avec critére de wald
+ *
+ * @param m reference constante vers notre object de type Matice
+ * @param verbose permet de savoir si on veut que on imprime les detail au terminale
+ * @param path le chemin du fichier ou on vas stocker le resultat, "Testing/Output/" par default
+ *
+ * */
 void Resolution::wald(Matrice& m, bool verbose, std::string path)
 {
 	std::vector<float> min;
@@ -32,6 +40,14 @@ void Resolution::wald(Matrice& m, bool verbose, std::string path)
 	}
 }
 
+/*
+ * resolution avec critére de laplace
+ *
+ * @param m reference constante vers notre object de type Matice
+ * @param verbose permet de savoir si on veut que on imprime les detail au terminale
+ * @param path le chemin du fichier ou on vas stocker le resultat, "Testing/Output/" par default
+ *
+ * */
 void Resolution::laplace(Matrice& m, bool verbose, std::string path)
 {
 	std::vector<float> average;
@@ -57,6 +73,15 @@ void Resolution::laplace(Matrice& m, bool verbose, std::string path)
 	}
 }
 
+/*
+ * resolution avec critére de hurwicz
+ *
+ * @param aplha float qui conitent la valeur de alpha entre (O-1)
+ * @param m reference constante vers notre object de type Matice
+ * @param verbose permet de savoir si on veut que on imprime les detail au terminale
+ * @param path le chemin du fichier ou on vas stocker le resultat, "Testing/Output/" par default
+ *
+ * */
 void Resolution::hurwicz(float alpha, Matrice& m, bool verbose, std::string path)
 {
 	std::vector<float> min;
@@ -93,6 +118,14 @@ void Resolution::hurwicz(float alpha, Matrice& m, bool verbose, std::string path
 	}
 }
 
+/*
+ * resolution avec critére de savage
+ *
+ * @param m reference constante vers notre object de type Matice
+ * @param verbose permet de savoir si on veut que on imprime les detail au terminale
+ * @param path le chemin du fichier ou on vas stocker le resultat, "Testing/Output/" par default
+ *
+ * */
 void Resolution::savage(Matrice& m, bool verbose, std::string path)
 {
 	std::vector<std::vector<float>> matriceRegret;
@@ -142,6 +175,14 @@ void Resolution::savage(Matrice& m, bool verbose, std::string path)
 	}
 }
 
+/*
+ * resolution avec critére miniMax
+ *
+ * @param m reference constante vers notre object de type Matice
+ * @param verbose permet de savoir si on veut que on imprime les detail au terminale
+ * @param path le chemin du fichier ou on vas stocker le resultat, "Testing/Output/" par default
+ *
+ * */
 void Resolution::minimax(Matrice& m, bool verbose, std::string path)
 {
 	std::vector<float> max;
@@ -149,11 +190,11 @@ void Resolution::minimax(Matrice& m, bool verbose, std::string path)
 
 	for (const auto& i: m.GetMatriceDeBase())
 	{
-		max.push_back(*std::max_element(i.begin(), i.end()));
+		max.push_back(*std::max_element(i.begin(), i.end()));		//max de chaque ligne
 	}
 
 	std::string text = "d'apres le critere de MiniMax on choisi la startegie : ";
-	text.append(std::to_string(std::min_element(max.begin(), max.end()) - max.begin() + 1));
+	text.append(std::to_string(std::min_element(max.begin(), max.end()) - max.begin() + 1));	//min des max
 
 	if (verbose)
 		Output::pretty_vector_print(max, text);
@@ -167,6 +208,14 @@ void Resolution::minimax(Matrice& m, bool verbose, std::string path)
 	}
 }
 
+/*
+ * resolution avec critére de maxiMax
+ *
+ * @param m reference constante vers notre object de type Matice
+ * @param verbose permet de savoir si on veut que on imprime les detail au terminale
+ * @param path le chemin du fichier ou on vas stocker le resultat, "Testing/Output/" par default
+ *
+ * */
 void Resolution::maximax(Matrice& m, bool verbose, std::string path)
 {
 	std::vector<float> max;
@@ -174,11 +223,11 @@ void Resolution::maximax(Matrice& m, bool verbose, std::string path)
 
 	for (const auto& i: m.GetMatriceDeBase())
 	{
-		max.push_back(*std::max_element(i.begin(), i.end()));
+		max.push_back(*std::max_element(i.begin(), i.end()));		//max de chaque ligne
 	}
 
 	std::string text = "d'apres le critere de MaxiMax on choisi la startegie : ";
-	text.append(std::to_string(std::max_element(max.begin(), max.end()) - max.begin() + 1));
+	text.append(std::to_string(std::max_element(max.begin(), max.end()) - max.begin() + 1));	//max des max
 
 	if (verbose)
 		Output::pretty_vector_print(max, text);
